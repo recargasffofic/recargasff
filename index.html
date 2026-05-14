@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Diamantes Free Fire</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#050505;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* FONDO */
+
+body::before{
+    content:'';
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    radial-gradient(circle at top left, rgba(255,208,0,0.12), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255,208,0,0.08), transparent 30%);
+    z-index:-1;
+}
+
+/* HEADER */
+
+header{
+    text-align:center;
+    padding:55px 20px;
+    background:linear-gradient(180deg,#111,#050505);
+    border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+header h1{
+    font-size:58px;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+header span{
+    color:#ffd000;
+    text-shadow:0 0 25px rgba(255,208,0,.5);
+}
+
+header p{
+    margin-top:12px;
+    color:#d1d1d1;
+    font-size:17px;
+}
+
+/* CONTENEDOR */
+
+.container{
+    width:100%;
+    max-width:1300px;
+    margin:auto;
+    padding:50px 20px;
+}
+
+/* TARJETAS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:28px;
+}
+
+.card{
+    position:relative;
+    background:linear-gradient(145deg,#101010,#171717);
+    border:1px solid rgba(255,208,0,.15);
+    border-radius:24px;
+    padding:30px;
+    overflow:hidden;
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:#ffd000;
+    box-shadow:0 0 35px rgba(255,208,0,.15);
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    width:220px;
+    height:220px;
+    background:rgba(255,208,0,.06);
+    border-radius:50%;
+    top:-90px;
+    right:-90px;
+}
+
+.badge{
+    position:absolute;
+    top:18px;
+    right:18px;
+    background:#ffd000;
+    color:black;
+    padding:7px 14px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.icon{
+    font-size:55px;
+}
+
+.amount{
+    margin-top:18px;
+    font-size:31px;
+    font-weight:700;
+}
+
+.price{
+    margin-top:8px;
+    font-size:28px;
+    font-weight:800;
+    color:#ffd000;
+}
+
+.buy-btn{
+    width:100%;
+    margin-top:28px;
+    border:none;
+    padding:16px;
+    border-radius:16px;
+    background:#ffd000;
+    color:black;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.buy-btn:hover{
+    background:white;
+    transform:scale(1.03);
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+    padding:20px;
+}
+
+.modal-box{
+    width:100%;
+    max-width:430px;
+    background:#111;
+    border-radius:24px;
+    border:1px solid rgba(255,208,0,.15);
+    padding:30px;
+    animation:show .25s ease;
+}
+
+@keyframes show{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.modal-box h2{
+    text-align:center;
+    color:#ffd000;
+    margin-bottom:25px;
+}
+
+.payment-option{
+    width:100%;
+    padding:18px;
+    border-radius:16px;
+    background:#1a1a1a;
+    border:2px solid transparent;
+    margin-bottom:15px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:17px;
+    font-weight:600;
+}
+
+.payment-option:hover{
+    border-color:#ffd000;
+}
+
+.payment-option.active{
+    border-color:#ffd000;
+    background:rgba(255,208,0,.08);
+}
+
+.confirm-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:16px;
+    background:#ffd000;
+    color:black;
+    font-size:16px;
+    font-weight:800;
+    margin-top:10px;
+    cursor:pointer;
+}
+
+.close-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:16px;
+    background:#262626;
+    color:white;
+    margin-top:12px;
+    cursor:pointer;
+}
+
+footer{
+    margin-top:50px;
+    padding:35px;
+    text-align:center;
+    color:#8a8a8a;
+    border-top:1px solid rgba(255,255,255,0.05);
+}
+
+@media(max-width:700px){
+
+    header h1{
+        font-size:40px;
+    }
+
+    .amount{
+        font-size:26px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<header>
+    <h1>💎 DIAMANTES <span>FREE FIRE</span></h1>
+    <p>Recargas rápidas y seguras en pesos colombianos 🇨🇴</p>
+</header>
+
+<div class="container">
+
+<div class="cards">
+
+    <div class="card">
+        <div class="badge">POPULAR</div>
+        <div class="icon">💎</div>
+        <div class="amount">100 Diamantes</div>
+        <div class="price">$4.200 COP</div>
+        <button class="buy-btn" onclick="openModal('100 Diamantes','$4.200 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">💎</div>
+        <div class="amount">220 Diamantes</div>
+        <div class="price">$8.500 COP</div>
+        <button class="buy-btn" onclick="openModal('220 Diamantes','$8.500 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="badge">TOP</div>
+        <div class="icon">💎</div>
+        <div class="amount">341 Diamantes</div>
+        <div class="price">$13.000 COP</div>
+        <button class="buy-btn" onclick="openModal('341 Diamantes','$13.000 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">💎</div>
+        <div class="amount">572 Diamantes</div>
+        <div class="price">$20.000 COP</div>
+        <button class="buy-btn" onclick="openModal('572 Diamantes','$20.000 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">💎</div>
+        <div class="amount">682 Diamantes</div>
+        <div class="price">$25.000 COP</div>
+        <button class="buy-btn" onclick="openModal('682 Diamantes','$25.000 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="badge">BEST SELLER</div>
+        <div class="icon">💎</div>
+        <div class="amount">913 Diamantes</div>
+        <div class="price">$33.000 COP</div>
+        <button class="buy-btn" onclick="openModal('913 Diamantes','$33.000 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">💎</div>
+        <div class="amount">1,166 Diamantes</div>
+        <div class="price">$38.000 COP</div>
+        <button class="buy-btn" onclick="openModal('1,166 Diamantes','$38.000 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="badge">MEJOR OFERTA</div>
+        <div class="icon">💎</div>
+        <div class="amount">2,398 Diamantes</div>
+        <div class="price">$73.500 COP</div>
+        <button class="buy-btn" onclick="openModal('2,398 Diamantes','$73.500 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">💎</div>
+        <div class="amount">3,564 Diamantes</div>
+        <div class="price">$112.000 COP</div>
+        <button class="buy-btn" onclick="openModal('3,564 Diamantes','$112.000 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">💎</div>
+        <div class="amount">4,796 Diamantes</div>
+        <div class="price">$148.000 COP</div>
+        <button class="buy-btn" onclick="openModal('4,796 Diamantes','$148.000 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="badge">PREMIUM</div>
+        <div class="icon">💎</div>
+        <div class="amount">6,166 Diamantes</div>
+        <div class="price">$182.000 COP</div>
+        <button class="buy-btn" onclick="openModal('6,166 Diamantes','$182.000 COP')">COMPRAR</button>
+    </div>
+
+    <div class="card">
+        <div class="badge">MAX</div>
+        <div class="icon">💎</div>
+        <div class="amount">12,320 Diamantes</div>
+        <div class="price">$365.000 COP</div>
+        <button class="buy-btn" onclick="openModal('12,320 Diamantes','$365.000 COP')">COMPRAR</button>
+    </div>
+
+</div>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <h2>Selecciona método de pago</h2>
+
+        <div class="payment-option" onclick="selectPayment('Nequi',this)">
+            💜 Pagar con Nequi
+        </div>
+
+        <div class="payment-option" onclick="selectPayment('PayPal',this)">
+            🟦 Pagar con PayPal
+        </div>
+
+        <button class="confirm-btn" onclick="confirmPurchase()">
+            CONFIRMAR
+        </button>
+
+        <button class="close-btn" onclick="closeModal()">
+            CANCELAR
+        </button>
+
+    </div>
+
+</div>
+
+<footer>
+    ⚡ Atención rápida por WhatsApp — Recargas 100% seguras
+</footer>
+
+<script>
+
+let selectedDiamonds = "";
+let selectedPrice = "";
+let selectedPayment = "";
+
+function openModal(diamonds, price){
+
+    selectedDiamonds = diamonds;
+    selectedPrice = price;
+
+    document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal(){
+
+    document.getElementById("modal").style.display = "none";
+
+    selectedPayment = "";
+
+    document.querySelectorAll('.payment-option').forEach(item=>{
+        item.classList.remove('active');
+    });
+
+}
+
+function selectPayment(method, element){
+
+    selectedPayment = method;
+
+    document.querySelectorAll('.payment-option').forEach(item=>{
+        item.classList.remove('active');
+    });
+
+    element.classList.add('active');
+
+}
+
+function confirmPurchase(){
+
+    if(selectedPayment === ""){
+
+        alert("Selecciona un método de pago");
+
+        return;
+    }
+
+    let phone = "573124593774";
+
+    let message =
+`Hola, quiero comprar:
+
+💎 ${selectedDiamonds}
+💰 ${selectedPrice}
+
+✅ Método de pago: ${selectedPayment}
+
+🆔 UID:
+🌎 Servidor:
+
+Quedo atento ✅`;
+
+    let url =
+`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, '_blank');
+
+}
+
+</script>
+
+</body>
+</html>
